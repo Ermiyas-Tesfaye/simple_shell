@@ -24,8 +24,7 @@ int non_builtin(char **av)
 		perror("Forking error\n");
 	else
 	{
-		do
-		{
+		do {
 			wpid = waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}

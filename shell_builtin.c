@@ -3,9 +3,10 @@
  * builtins - count number of of built-in functions
  * Return: number of builtins
  */
-int builtins(void) {
+int builtins(void)
+{
 	char *builtin_str[] = {"cd", "exit"};
-	
+
 	return (sizeof(builtin_str) / sizeof(char *));
 }
 /**
@@ -26,7 +27,7 @@ int _cd(char **av)
 }
 
 /**
- * _exit - exit the process
+ * sh_exit - exit the process
  * @av: argument vector
  * Return: always 0
  */

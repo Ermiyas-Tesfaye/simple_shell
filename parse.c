@@ -1,7 +1,7 @@
 #include "main.h"
 /**
  * parse - parsing a string text to array of strings
- * @text: a single line string
+ * @line: a single line string
  * Return: array of strings (tokens)
  */
 char **parse(char *line)
@@ -32,5 +32,5 @@ char **parse(char *line)
 		token = strtok(NULL, " \n\t");
 	}
 	tokens[i] = NULL;
-	return tokens;
+	return (tokens);
 }

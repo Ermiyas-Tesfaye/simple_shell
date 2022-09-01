@@ -6,9 +6,9 @@
  */
 int shell_execute(char **av)
 {
-	char *builtin_str[] = {"cd", "exit"};
-	int (*builtin_fun[]) (char **) = {&_cd, &sh_exit};
+	int (*builtin_fun[]) (char **str) = {&_cd, &sh_exit};
 	int i;
+	char *builtin_str[] = {"cd", "exit"};
 
 	if (av[0] == NULL)
 		return (1);
@@ -17,5 +17,5 @@ int shell_execute(char **av)
 		if (strcmp(av[0], builtin_str[i]) == 0)
 			return ((*builtin_fun[i])(av));
 	}
-	return non_builtin(av);
+	return (non_builtin(av));
 }

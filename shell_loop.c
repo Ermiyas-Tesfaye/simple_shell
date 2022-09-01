@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * shell_loop - is the instance of four process prompt, read, parse, and execute
+ * shell_loop - is the instance of 4 process prompt, read, parse, and execute
  */
 void shell_loop(void)
 {
