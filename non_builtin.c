@@ -14,9 +14,19 @@ int non_builtin(char **av)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (**av == '/')
+		{
+			if (execve(av[0], av, NULL) == -1)
+			{
+			//	perror("Error on child\n");
+				perror("./hsh");
+				exit(EXIT_FAILURE);
+			}
+		}
 		if (execve(path, av, NULL) == -1)
 		{
-			perror("Error on child\n");
+		//	perror("Error on child\n");
+			perror("./hsh");
 			exit(EXIT_FAILURE);
 		}
 	}
