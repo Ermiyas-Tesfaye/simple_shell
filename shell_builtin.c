@@ -28,7 +28,6 @@ int _cd(char **av)
 
 /**
  * sh_exit - exit the process
- * @av: argument vector
  * Return: always 0
  */
 int sh_exit(/*char **av*/)
