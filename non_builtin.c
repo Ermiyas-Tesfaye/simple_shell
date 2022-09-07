@@ -6,7 +6,8 @@
  */
 int non_builtin(char **av)
 {
-	pid_t pid, wpid;
+	pid_t pid;
+	pid_t wpid;
 	char path[100] = "/bin/";
 	int status;
 
@@ -18,14 +19,14 @@ int non_builtin(char **av)
 		{
 			if (execve(av[0], av, NULL) == -1)
 			{
-			//	perror("Error on child\n");
+			/*	perror("Error on child\n");*/
 				perror("./hsh");
 				exit(EXIT_FAILURE);
 			}
 		}
 		if (execve(path, av, NULL) == -1)
 		{
-		//	perror("Error on child\n");
+		/*	perror("Error on child\n");*/
 			perror("./hsh");
 			exit(EXIT_FAILURE);
 		}
@@ -36,6 +37,11 @@ int non_builtin(char **av)
 	{
 		do {
 			wpid = waitpid(pid, &status, WUNTRACED);
+			if (wpid == -1)
+			{
+				perror("waitpid");
+				exit(EXIT_FAILURE);
+			}
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 	return (1);

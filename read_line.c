@@ -6,8 +6,8 @@
 char *read_line(void)
 {
 	char *line = NULL;
-	ssize_t bufsize = 0;
-	size_t charLen;
+	size_t bufsize = 0;
+	ssize_t charLen;
 
 	charLen = getline(&line, &bufsize, stdin);
 	if (charLen == -1)

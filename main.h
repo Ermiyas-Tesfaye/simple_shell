@@ -7,7 +7,7 @@
 #include <string.h>
 int _putchar(char c);
 int _cd(char **av);
-int sh_exit(char **av);
+int sh_exit(/*char **av*/);
 int builtins(void);
 int non_builtin(char **av);
 int shell_execute(char **av);

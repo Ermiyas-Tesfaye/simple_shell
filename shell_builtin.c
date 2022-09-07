@@ -31,7 +31,7 @@ int _cd(char **av)
  * @av: argument vector
  * Return: always 0
  */
-int sh_exit(char **av)
+int sh_exit(/*char **av*/)
 {
 	return (0);
 }

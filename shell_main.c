@@ -5,7 +5,7 @@
  * @av: argument vector
  * Return: status
  */
-int main(int ac, char **av)
+int main(/*int ac, char **av*/)
 {
 	shell_loop();
 	return (0);
