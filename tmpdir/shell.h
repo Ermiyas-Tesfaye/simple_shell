@@ -24,8 +24,7 @@ char *test_path(char **paths, char *cmd);
 char **tokenizer(char *line);
 
 /**
- * Description - for the builtin commands
- * @builtin: contain the builtin commands
+ * struct builtin - contain the builtin commands
  * @env: the environment variable
  * @exit: for the exit command
  * @cd: for the change directory command
