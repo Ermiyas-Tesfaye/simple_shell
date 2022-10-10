@@ -1,48 +1,50 @@
 #include "shell.h"
-
 /**
- * main - the entry point for the program
- * @argc: argument count
- * @argv: argument vectors
- * @envp: the environment variables
- * Return: an integer
- */
-int main(int argc, char *argv[], char *envp[])
+* main - carries out the read, execute then print output loop
+* @ac: argument count
+* @av: argument vector
+* @envp: environment vector
+*
+* Return: 0
+*/
+
+int main(int ac, char **av, char *envp[])
 {
-	char **commands = NULL, **paths = NULL;
-	char *path = NULL, *line = NULL, *expath = NULL;
+	char *line = NULL, *pathcommand = NULL, *path = NULL;
 	size_t bufsize = 0;
 	ssize_t linesize = 0;
-
-	envp = envp;
-	if (argc < 1)
+	char **command = NULL, **paths = NULL;
+	(void)envp, (void)av;
+	if (ac < 1)
 		return (-1);
+	signal(SIGINT, handle_signal);
 	while (1)
 	{
-		print_prompt();
+		free_buffers(command);
+		free_buffers(paths);
+		free(pathcommand);
+		prompt_user();
 		linesize = getline(&line, &bufsize, stdin);
 		if (linesize < 0)
 			break;
+		info.ln_count++;
 		if (line[linesize - 1] == '\n')
 			line[linesize - 1] = '\0';
-		commands = tokenizer(line);
-		if (commands == NULL || *commands == NULL || **commands == '\0')
+		command = tokenizer(line);
+		if (command == NULL || *command == NULL || **command == '\0')
 			continue;
-		if (checker(commands, line, argv[0]))
+		if (checker(command, line))
 			continue;
 		path = find_path();
 		paths = tokenizer(path);
-		expath = test_path(paths, commands[0]);
-		if (!expath)
-		{
-			perror(argv[0]);
-			continue;
-		}
+		pathcommand = test_path(paths, command[0]);
+		if (!pathcommand)
+			perror(av[0]);
 		else
-			execute(expath, commands);
+			execution(pathcommand, command);
 	}
-	if (linesize < 0)
-		write(2, "", 0);
+	if (linesize < 0 && flags.interactive)
+		write(STDERR_FILENO, "\n", 1);
 	free(line);
 	return (0);
 }

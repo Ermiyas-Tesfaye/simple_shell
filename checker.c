@@ -1,43 +1,18 @@
 #include "shell.h"
 /**
- * checker - check the command
- * @cmd: the command arrays to check
- * @buf: buffer string
- * Return: an integer
+ *checker- checks to see weather its a built in function
+ *@cmd: tokenized user input
+ *@buf: line drived fromgetline function
+ *Return: 1 if cmd excuted 0 if cmd is not executed
  */
-int checker(char **cmd, char *buf, char *arg)
+int checker(char **cmd, char *buf)
 {
-	int i = 0;
-	char *a, *str;
-
-	str = cmd[0];
-	a = malloc(sizeof(char) * 1024);
-	if (check_builtin(cmd, buf))
+	if (handle_builtin(cmd, buf))
 		return (1);
-	else if (str[0] == '.' && str[1] == '/')
-	{
-		while (*str && i < 2)
-		{
-			str++;
-			i++;
-		}
-		a = getcwd(a, 1024);
-		a = append(a, str);
-		execute(a, cmd);
-		return (1);
-	}
 	else if (**cmd == '/')
 	{
-		if (access(*cmd, F_OK & X_OK) == 0)
-		{
-			execute(cmd[0], cmd);
-			return (1);
-		}
-		else
-		{
-			perror(arg);
-			return (1);
-		}
+		execution(cmd[0], cmd);
+		return (1);
 	}
 	return (0);
 }

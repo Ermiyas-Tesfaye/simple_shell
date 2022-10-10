@@ -1,42 +1,45 @@
 #include "shell.h"
+
 /**
- * tokenizer - tokenize the inputted string
- * @line: the inputted string
- * Return: the strings array
- */
+* tokenizer - creates tokens from given input
+* @line: to be tokenized
+*
+* Return: array of strings
+*/
 char **tokenizer(char *line)
 {
-	int toksize = 1;
-	char *delims = " :\t\r\n", *token = NULL, *buf = NULL, *buftmp = NULL;
+	char *buf = NULL, *bufp = NULL, *token = NULL, *delim = " :\t\r\n";
 	char **tokens = NULL;
-	size_t index = 0, mark = 0, i = 0;
+	int tokensize = 1;
+	size_t index = 0, flag = 0;
 
-	buf = strdup(line);
+	buf = _strdup(line);
 	if (!buf)
 		return (NULL);
-	buftmp = buf;
-	while (buftmp[i])
+	bufp = buf;
+
+	while (*bufp)
 	{
-		if (strchr(delims, buftmp[i]) != NULL && mark == 0)
+		if (_strchr(delim, *bufp) != NULL && flag == 0)
 		{
-			toksize++;
-			mark = 1;
+			tokensize++;
+			flag = 1;
 		}
-		else if (strchr(delims, buftmp[i]) == NULL && mark == 1)
-			mark = 0;
-		i++;
+		else if (_strchr(delim, *bufp) == NULL && flag == 1)
+			flag = 0;
+		bufp++;
 	}
-	tokens = malloc(sizeof(char *) * (toksize + 1));
-	token = strtok(buf, delims);
+	tokens = malloc(sizeof(char *) * (tokensize + 1));
+	token = strtok(buf, delim);
 	while (token)
 	{
-		tokens[index] = strdup(token);
+		tokens[index] = _strdup(token);
 		if (tokens[index] == NULL)
 		{
 			free(tokens);
 			return (NULL);
 		}
-		token = strtok(NULL, delims);
+		token = strtok(NULL, delim);
 		index++;
 	}
 	tokens[index] = '\0';
