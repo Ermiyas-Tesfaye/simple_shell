@@ -42,7 +42,7 @@ int main(int argc, char *argv[], char *envp[])
 			execute(expath, commands);
 	}
 	if (linesize < 0)
-		write(2, "", 1);
+		write(2, "", 0);
 	free(line);
 	return (0);
 }
