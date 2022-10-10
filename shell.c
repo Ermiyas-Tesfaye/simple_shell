@@ -41,8 +41,8 @@ int main(int argc, char *argv[], char *envp[])
 		else
 			execute(expath, commands);
 	}
-	/*if (linesize < 0)*/
-	/*	write(2, "\n", 1);*/
+	if (linesize < 0)
+		write(2, "\n", 1);
 	free(line);
 	return (0);
 }
